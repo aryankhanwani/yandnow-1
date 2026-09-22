@@ -123,6 +123,21 @@ generated — edit the manifest, not the output. Photos are consumed through
 [`Frame.tsx`](src/components/Frame.tsx), which wires up the placeholder,
 intrinsic size and hairline border.
 
+## Stats
+
+Outcome figures are authored as display strings — `"₹41 Cr"`, `"4.2 days"`,
+`"2.3×"`, `"06"` — rather than split into value/unit pairs across the data
+layer. `StatNumber` ([motion-primitives](src/components/motion-primitives.tsx))
+parses the number back out and counts only that, preserving the prefix, suffix,
+comma grouping, decimal places and any leading zeros (`"06"` must not count up
+to `"6"`).
+
+Page-hero stats put the **figure above the label**. With the label on top, a
+two-word label beside a three-word one wrapped to a second line and shunted its
+figure down, so the row never sat on a common baseline. A hero value with no
+leading digit is treated as prose and keeps text sizing — at display size
+`"Fixed · Mobile · In-plant"` wrapped mid-word.
+
 ## Home page carousel
 
 The testimonials block advances on a 7s timer and stops permanently the moment

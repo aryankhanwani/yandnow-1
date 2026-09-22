@@ -14,6 +14,8 @@ export default function Nav() {
   const [condensed, setCondensed] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  // Which desktop nav item has its dropdown showing (only Solutions has one).
+  const [menu, setMenu] = useState<string | null>(null);
   const { scrollY } = useScroll();
 
   // Condense past the fold; hide on downward scroll, reveal the moment the
@@ -70,29 +72,102 @@ export default function Nav() {
               </span>
             </Link>
 
-            <nav className="hidden items-center gap-1 md:flex">
+            <nav
+              className="hidden items-center gap-1 md:flex"
+              onMouseLeave={() => setMenu(null)}
+            >
               {nav.map((item) => {
                 const active =
-                  pathname === item.href || pathname.startsWith(`${item.href}/`);
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname === item.href || pathname.startsWith(`${item.href}/`);
+                const hasMenu = item.href === "/solutions";
+
                 return (
-                  <Link
+                  <div
                     key={item.href}
-                    href={item.href}
-                    className={`group relative px-3.5 py-2 text-[0.9375rem] font-medium transition-colors duration-300 ${
-                      onDark
-                        ? "text-white/70 hover:text-white"
-                        : "text-ink-70 hover:text-ink"
-                    }`}
+                    className="relative"
+                    onMouseEnter={() => setMenu(hasMenu ? item.href : null)}
+                    // Focus counts as intent too, so the panel is reachable by
+                    // keyboard; blurring out of the whole group closes it.
+                    onFocus={() => setMenu(hasMenu ? item.href : null)}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                        setMenu(null);
+                      }
+                    }}
                   >
-                    {item.label}
-                    <span
-                      className={[
-                        "absolute inset-x-3.5 -bottom-0.5 h-[1.5px] origin-left transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                        onDark ? "bg-cyan-brand" : "bg-indigo-brand",
-                        active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
-                      ].join(" ")}
-                    />
-                  </Link>
+                    <Link
+                      href={item.href}
+                      aria-expanded={hasMenu ? menu === item.href : undefined}
+                      className={`group relative flex items-center gap-1.5 px-3.5 py-2 text-[0.9375rem] font-medium transition-colors duration-300 ${
+                        onDark
+                          ? "text-white/70 hover:text-white"
+                          : "text-ink-70 hover:text-ink"
+                      }`}
+                    >
+                      {item.label}
+                      {hasMenu && (
+                        <svg
+                          width="9"
+                          height="6"
+                          viewBox="0 0 10 6"
+                          fill="none"
+                          aria-hidden
+                          className={`mt-px transition-transform duration-300 ${
+                            menu === item.href ? "rotate-180" : ""
+                          }`}
+                        >
+                          <path
+                            d="M1 1l4 4 4-4"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                      <span
+                        className={[
+                          "absolute inset-x-3.5 -bottom-0.5 h-[1.5px] origin-left transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                          onDark ? "bg-cyan-brand" : "bg-indigo-brand",
+                          active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
+                        ].join(" ")}
+                      />
+                    </Link>
+
+                    {hasMenu && (
+                      <AnimatePresence>
+                        {menu === item.href && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.28, ease: EASE }}
+                            className="absolute top-full left-0 pt-3"
+                          >
+                            <div className="w-[18rem] overflow-hidden rounded-xl border border-line bg-paper-warm p-2 shadow-[0_18px_50px_-18px_rgb(12_13_28/0.28)]">
+                              {solutions.map((s) => (
+                                <Link
+                                  key={s.slug}
+                                  href={`/solutions/${s.slug}`}
+                                  onClick={() => setMenu(null)}
+                                  className="flex items-baseline gap-3 rounded-lg px-3 py-2.5 transition-colors duration-200 hover:bg-paper"
+                                >
+                                  <span className="font-mono text-[0.625rem] tracking-[0.14em] text-ink-30 tabular-nums">
+                                    {s.index}
+                                  </span>
+                                  <span className="min-w-0 text-[0.9375rem] font-medium text-ink">
+                                    {s.title}
+                                  </span>
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
+                  </div>
                 );
               })}
 

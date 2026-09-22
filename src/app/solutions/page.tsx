@@ -4,7 +4,13 @@ import PageHero from "@/components/PageHero";
 import Frame from "@/components/Frame";
 import PartnerMarquee from "@/components/sections/PartnerMarquee";
 import { solutions } from "@/lib/site";
-import { MaskLines, Reveal, RevealGroup, RevealItem } from "@/components/motion-primitives";
+import {
+  MaskLines,
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  StatNumber,
+} from "@/components/motion-primitives";
 
 export const metadata: Metadata = {
   title: "Solutions",
@@ -27,8 +33,8 @@ export default function SolutionsPage() {
         ]}
         meta={[
           { label: "Verticals", value: "06" },
-          { label: "Delivery modes", value: "Fixed · Mobile · In-plant" },
-          { label: "Certification", value: "NSQF-aligned" },
+          { label: "People trained", value: "48,000+" },
+          { label: "States covered", value: "19" },
         ]}
       />
 
@@ -77,13 +83,13 @@ export default function SolutionsPage() {
                     </Reveal>
 
                     <Reveal delay={0.14}>
-                      <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+                      <dl className="mt-8 grid grid-cols-3 gap-x-6">
                         {s.outcomes.map((o) => (
                           <div key={o.label}>
-                            <dt className="font-display text-[1.5rem] leading-none font-semibold tracking-[-0.035em] text-indigo-brand tabular-nums">
-                              {o.stat}
+                            <dt className="font-display text-[clamp(1.375rem,2vw,1.75rem)] leading-none font-semibold tracking-[-0.035em] text-indigo-brand">
+                              <StatNumber value={o.stat} />
                             </dt>
-                            <dd className="mt-1.5 text-[0.8125rem] text-ink-50">
+                            <dd className="mt-2 text-[0.8125rem] leading-snug text-ink-50">
                               {o.label}
                             </dd>
                           </div>
@@ -94,7 +100,7 @@ export default function SolutionsPage() {
                     <Reveal delay={0.18}>
                       <span className="mt-9 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-ink">
                         <span className="relative">
-                          Open {s.short.toLowerCase()}
+                          {s.ctaLabel}
                           <span className="absolute -bottom-[3px] left-0 h-px w-full origin-left scale-x-0 bg-indigo-brand transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
                         </span>
                         <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[3px] group-hover:-translate-y-[3px]">
@@ -134,11 +140,17 @@ export default function SolutionsPage() {
               ["Placement support", "Employer introductions, interview preparation and 90-day verification."],
               ["Reporting & audit trail", "Geo-tagged attendance, assessment records and tracer studies as standard."],
             ].map(([title, body]) => (
-              <RevealItem key={title} className="bg-ink p-8" y={18}>
+              <RevealItem
+                key={title}
+                className="group/cap relative bg-ink p-8 transition-colors duration-500 hover:bg-white/[0.035]"
+                y={18}
+              >
                 <h3 className="font-display text-[1.1875rem] font-semibold tracking-[-0.025em]">
                   {title}
                 </h3>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-white/55">
+                {/* Drawn in from the left on hover — the whole micro-interaction. */}
+                <span className="mt-3 block h-[2px] w-8 origin-left scale-x-0 bg-cyan-brand transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cap:scale-x-100" />
+                <p className="mt-3 text-[0.9375rem] leading-relaxed text-white/55 transition-colors duration-500 group-hover/cap:text-white/75">
                   {body}
                 </p>
               </RevealItem>

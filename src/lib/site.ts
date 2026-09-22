@@ -17,6 +17,7 @@ export const site = {
 } as const;
 
 export const nav = [
+  { label: "Home", href: "/" },
   { label: "Solutions", href: "/solutions" },
   { label: "Impact", href: "/impact" },
   { label: "About", href: "/about" },
@@ -43,6 +44,9 @@ export type Solution = {
   short: string;
   summary: string;
   lede: string;
+  /** Written per vertical: "Open CSR programmes" reads better than a derived
+   *  "Open csr", and lowercasing a title would ruin the acronyms. */
+  ctaLabel: string;
   hero: PhotoKey;
   accent: "indigo" | "cyan";
   audience: string[];
@@ -62,6 +66,7 @@ export const solutions: Solution[] = [
       "Technical and behavioural upskilling for service networks, dealerships and frontline teams.",
     lede:
       "Your technicians are the product experience. We build curricula around your service manuals, your diagnostic tools and your quality gates — then run them across the dealer network until the floor moves as one.",
+    ctaLabel: "Open corporate training",
     hero: "engine-cohort",
     accent: "indigo",
     audience: [
@@ -105,6 +110,7 @@ export const solutions: Solution[] = [
       "Fund-to-field delivery for corporate social responsibility mandates, with audit-ready reporting.",
     lede:
       "CSR money fails on delivery, not intent. We run the last mile — mobilisation, training, certification, placement and the evidence trail your board and auditors need — under one accountable partner.",
+    ctaLabel: "Open CSR programmes",
     hero: "medical-camp",
     accent: "cyan",
     audience: [
@@ -148,6 +154,7 @@ export const solutions: Solution[] = [
       "Shopfloor-grade training in welding, fabrication, machining, electrical and site safety.",
     lede:
       "A weld either holds or it doesn't. Industrial trades are graded against destructive tests and site standards, taught in workshops built to the same tolerances as the plants our trainees join.",
+    ctaLabel: "Open industry solutions",
     hero: "welding-sparks",
     accent: "indigo",
     audience: [
@@ -191,6 +198,7 @@ export const solutions: Solution[] = [
       "Technical training and resettlement pathways for serving personnel and veterans.",
     lede:
       "Service personnel already have discipline, maintenance instinct and the ability to work a checklist under pressure. We convert that into a civilian trade credential — and, where required, bring the classroom to the unit.",
+    ctaLabel: "Open defence programmes",
     hero: "defence-engine-class",
     accent: "cyan",
     audience: [
@@ -234,7 +242,8 @@ export const solutions: Solution[] = [
       "Vocational exposure, career labs and NSQF-aligned electives for Classes 9 to 12.",
     lede:
       "Most students choose a career from a list of four jobs they've heard of. We put tools in their hands early — so the choice is made from experience rather than hearsay.",
-    hero: "helmet-engine-lab",
+    ctaLabel: "Open school solutions",
+    hero: "sheet-metal-bench",
     accent: "indigo",
     audience: [
       "CBSE, ICSE & state-board schools",
@@ -277,6 +286,7 @@ export const solutions: Solution[] = [
       "Enterprise skilling that turns a trade into a running, bankable business.",
     lede:
       "A tailoring certificate is not an income. We take trainees past the skill into pricing, sourcing, credit-readiness and their first ten customers — so the enterprise still exists a year later.",
+    ctaLabel: "Open micro-entrepreneurship",
     hero: "tailoring-floor",
     accent: "cyan",
     audience: [

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Frame from "./Frame";
 import type { PhotoKey } from "@/lib/photos";
-import { MaskLines, Reveal } from "./motion-primitives";
+import { MaskLines, Reveal, StatNumber } from "./motion-primitives";
 
 /**
  * Inner-page header. Dark plate, one photo, breadcrumb — consistent enough
@@ -62,13 +62,34 @@ export default function PageHero({
 
             {meta && (
               <Reveal delay={0.22}>
-                <dl className="mt-11 grid gap-x-8 gap-y-5 border-t border-white/12 pt-8 sm:grid-cols-3">
-                  {meta.map((m) => (
-                    <div key={m.label}>
-                      <dt className="eyebrow text-white/30">{m.label}</dt>
-                      <dd className="mt-2 text-[0.9375rem] font-medium">{m.value}</dd>
-                    </div>
-                  ))}
+                {/* Value first, label under it. With the label on top, a
+                    two-word label next to a three-word one wrapped to a second
+                    line and shunted its value down, so the row of figures never
+                    sat on a common baseline. This way the numbers always align
+                    and the labels can wrap freely underneath. */}
+                <dl className="mt-11 grid gap-x-8 gap-y-7 border-t border-white/12 pt-8 sm:grid-cols-3">
+                  {meta.map((m) => {
+                    // Figures get the display treatment and count up. Prose
+                    // values ("Fixed · Mobile · In-plant") stay at text size —
+                    // at 2.4rem they wrapped mid-word and read as broken.
+                    const isFigure = /^[^0-9]{0,2}[0-9]/.test(m.value);
+                    return (
+                      <div key={m.label}>
+                        <dd
+                          className={
+                            isFigure
+                              ? "font-display text-[clamp(1.75rem,3vw,2.375rem)] leading-none font-semibold tracking-[-0.04em]"
+                              : "font-display text-[1.125rem] leading-snug font-semibold tracking-[-0.02em]"
+                          }
+                        >
+                          {isFigure ? <StatNumber value={m.value} /> : m.value}
+                        </dd>
+                        <dt className="mt-3 max-w-[22ch] text-[0.9375rem] leading-snug text-white/55">
+                          {m.label}
+                        </dt>
+                      </div>
+                    );
+                  })}
                 </dl>
               </Reveal>
             )}

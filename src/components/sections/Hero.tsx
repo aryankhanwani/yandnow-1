@@ -107,8 +107,21 @@ export default function Hero() {
                 className="group inline-flex items-center gap-3 rounded-full bg-paper-warm px-7 py-4 font-medium text-ink transition-colors duration-300 hover:bg-cyan-brand"
               >
                 Explore six verticals
-                <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
-                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  aria-hidden
+                  className="transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
+                >
+                  <path
+                    d="M3 11L11 3M11 3H5M11 3V9"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </Link>
               <Link

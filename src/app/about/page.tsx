@@ -94,8 +94,8 @@ export default function AboutPage() {
         ]}
         meta={[
           { label: "Founded", value: "2020" },
-          { label: "Verticals", value: "Six" },
-          { label: "States", value: "Nineteen" },
+          { label: "Verticals", value: "06" },
+          { label: "States covered", value: "19" },
         ]}
       />
 

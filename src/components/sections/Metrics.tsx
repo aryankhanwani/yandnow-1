@@ -41,7 +41,7 @@ export default function Metrics() {
       </div>
 
       {/* Full-bleed band of the work itself */}
-      <div className="grid grid-cols-2 gap-px bg-white/15 lg:grid-cols-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4">
         {(
           [
             ["engine-cohort", "Technicians working through a heavy-vehicle engine teardown"],
@@ -56,6 +56,7 @@ export default function Metrics() {
               alt={alt}
               className="h-full w-full"
               sizes="(min-width: 1024px) 25vw, 50vw"
+              ring={false}
             />
           </ScaleInFrame>
         ))}

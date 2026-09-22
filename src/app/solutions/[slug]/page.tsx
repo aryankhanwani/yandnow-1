@@ -279,7 +279,7 @@ export default async function SolutionPage({ params }: PageProps<"/solutions/[sl
                   already one <Link>, and nesting an anchor inside an anchor is
                   invalid and breaks keyboard navigation. */}
               <span className="mt-8 inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 font-medium text-paper-warm transition-colors duration-300 group-hover:bg-indigo-brand">
-                Open {next.short.toLowerCase()}
+                {next.ctaLabel}
                 <svg
                   width="15"
                   height="15"

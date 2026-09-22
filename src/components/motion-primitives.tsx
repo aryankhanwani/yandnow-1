@@ -292,6 +292,89 @@ export function formatNumber(n: number) {
   return new Intl.NumberFormat("en-IN").format(Math.round(n));
 }
 
+/* ──────────────────────────────────────────────────────────
+   StatNumber — animates the numeric part of an already-written
+   stat, leaving whatever wraps it alone. The content is
+   authored as display strings ("₹41 Cr", "4.2 days", "31%",
+   "12,400"), so rather than splitting those into value/unit
+   pairs across the data layer, parse the number back out and
+   count only that.
+   ────────────────────────────────────────────────────────── */
+const STAT = /^([^0-9]*)([0-9][0-9,]*(?:\.[0-9]+)?)(.*)$/;
+
+export function StatNumber({
+  value,
+  className,
+}: {
+  value: string;
+  className?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const numRef = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+  const reduce = useReducedMotion();
+
+  const parsed = STAT.exec(value);
+
+  useEffect(() => {
+    const node = numRef.current;
+    if (!node || !parsed) return;
+
+    const raw = parsed[2];
+    const grouped = raw.includes(",");
+    const decimals = (raw.split(".")[1] ?? "").length;
+    const target = parseFloat(raw.replace(/,/g, ""));
+    // "06" must not count up to "6". Hold the original integer width so
+    // zero-padded figures keep their padding at every step.
+    const intWidth = raw.split(".")[0].replace(/,/g, "").length;
+
+    const format = (n: number) => {
+      if (grouped) {
+        return new Intl.NumberFormat("en-IN", {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        }).format(n);
+      }
+      const out = n.toFixed(decimals);
+      const [whole, frac] = out.split(".");
+      return whole.padStart(intWidth, "0") + (frac ? `.${frac}` : "");
+    };
+
+    if (reduce) {
+      node.textContent = format(target);
+      return;
+    }
+    if (!inView) {
+      node.textContent = format(0);
+      return;
+    }
+
+    const controls = animate(0, target, {
+      duration: 1.7,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => {
+        node.textContent = format(v);
+      },
+    });
+    return () => controls.stop();
+  }, [inView, parsed, reduce]);
+
+  // No digits to count (shouldn't happen with current content, but the data is
+  // free text) — render it verbatim rather than mangling it.
+  if (!parsed) return <span className={className}>{value}</span>;
+
+  return (
+    <span ref={ref} className={className}>
+      {parsed[1]}
+      {/* Server-rendered at the final value so the stat is never blank. */}
+      <span ref={numRef} className="tabular-nums">
+        {parsed[2]}
+      </span>
+      {parsed[3]}
+    </span>
+  );
+}
+
 export function useScrollProgress(): MotionValue<number> {
   const { scrollYProgress } = useScroll();
   return useSpring(scrollYProgress, { stiffness: 220, damping: 40, mass: 0.28 });

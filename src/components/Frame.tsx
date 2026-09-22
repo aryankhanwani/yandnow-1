@@ -15,6 +15,7 @@ export default function Frame({
   priority = false,
   quality = 82,
   fit = "cover",
+  ring = true,
 }: {
   name: PhotoKey;
   alt: string;
@@ -29,6 +30,11 @@ export default function Frame({
    * set of landscape and portrait sources re-crops the subject out of frame.
    */
   fit?: "cover" | "natural";
+  /**
+   * The hairline stops light photos bleeding into paper. Turn it off where
+   * frames butt against each other — two adjacent rings read as a seam.
+   */
+  ring?: boolean;
 }) {
   const p = photos[name];
 
@@ -48,7 +54,9 @@ export default function Frame({
           fit === "cover" ? "h-full object-cover" : "h-auto"
         } ${imgClassName ?? ""}`}
       />
-      <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink/10" />
+      {ring && (
+        <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink/10" />
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
@@ -12,6 +12,7 @@ import Lenis from "lenis";
  */
 export default function SmoothScroll() {
   const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -26,6 +27,7 @@ export default function SmoothScroll() {
       autoRaf: true,
       anchors: { offset: -88 },
     });
+    lenisRef.current = lenis;
 
     // Let motion's useScroll recompute after Lenis settles layout.
     const onResize = () => lenis.resize();
@@ -34,12 +36,22 @@ export default function SmoothScroll() {
     return () => {
       window.removeEventListener("resize", onResize);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
-  // Land at the top on navigation — Lenis keeps its own position otherwise.
+  // Land at the top on navigation. This has to go through Lenis, not
+  // `window.scrollTo`: Lenis keeps its own `animatedScroll` and writes it back
+  // every frame, so a raw scrollTo gets reverted and the new page opens
+  // mid-way down wherever the previous one was left.
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    const lenis = lenisRef.current;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true, force: true });
+    } else {
+      // Reduced motion: no Lenis instance, so the browser owns the scroll.
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
   }, [pathname]);
 
   return null;

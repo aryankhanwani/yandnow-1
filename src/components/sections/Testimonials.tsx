@@ -60,28 +60,11 @@ export default function Testimonials() {
           <p className="eyebrow text-indigo-brand">What partners say</p>
         </Reveal>
 
-        <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-          <MaskLines
-            as="h2"
-            className="display-md max-w-[26ch] font-semibold"
-            lines={["Judged on delivery,", "not on the pitch."]}
-          />
-
-          <Reveal delay={0.12}>
-            <div className="flex items-center gap-3">
-              <Arrow
-                dir="prev"
-                onClick={() => handle(() => go(-1))}
-                label="Previous quote"
-              />
-              <Arrow
-                dir="next"
-                onClick={() => handle(() => go(1))}
-                label="Next quote"
-              />
-            </div>
-          </Reveal>
-        </div>
+        <MaskLines
+          as="h2"
+          className="display-md mt-6 max-w-[26ch] font-semibold"
+          lines={["Judged on delivery,", "not on the pitch."]}
+        />
 
         <div className="mt-14 grid gap-10 border-t border-line pt-12 lg:grid-cols-[1fr_0.62fr] lg:gap-20">
           <div className="flex min-h-[19rem] flex-col justify-between">
@@ -109,7 +92,7 @@ export default function Testimonials() {
               </motion.blockquote>
             </AnimatePresence>
 
-            <div className="mt-10 flex items-center gap-2">
+            <div className="mt-10 flex flex-wrap items-center gap-x-2 gap-y-4">
               {testimonials.map((item, idx) => (
                 <button
                   key={item.name}
@@ -145,6 +128,19 @@ export default function Testimonials() {
               <span className="ml-3 font-mono text-[0.6875rem] tracking-[0.12em] text-ink-30 tabular-nums">
                 {String(i + 1).padStart(2, "0")} / {String(testimonials.length).padStart(2, "0")}
               </span>
+
+              <div className="ml-auto flex items-center gap-2.5">
+                <Arrow
+                  dir="prev"
+                  onClick={() => handle(() => go(-1))}
+                  label="Previous quote"
+                />
+                <Arrow
+                  dir="next"
+                  onClick={() => handle(() => go(1))}
+                  label="Next quote"
+                />
+              </div>
             </div>
           </div>
 
