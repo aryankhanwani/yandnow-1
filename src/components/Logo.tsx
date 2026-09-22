@@ -1,13 +1,33 @@
+import Image from "next/image";
+import { wordmark } from "@/lib/brand";
+
 /**
- * Wordmark. The "&" is set in the cyan to carry the second brand colour
- * without resorting to a gradient anywhere on the mark.
+ * The YandNow wordmark. Two files, not one recoloured file: the colour mark
+ * carries the indigo/cyan/grey artwork as drawn, and the white mark is a
+ * silhouette cut from the same source's alpha channel, so the figure and swoosh
+ * survive as negative space instead of filling in.
  */
-export default function Logo({ className }: { className?: string }) {
+export default function Logo({
+  tone = "colour",
+  className,
+  priority = false,
+}: {
+  tone?: "colour" | "white";
+  className?: string;
+  priority?: boolean;
+}) {
+  const src = tone === "white" ? wordmark.white : wordmark.colour;
+
   return (
-    <span
-      className={`font-display text-[1.375rem] leading-none font-bold tracking-[-0.045em] transition-colors duration-500 ${className ?? ""}`}
-    >
-      Y<span className="text-cyan-brand">&amp;</span>Now
-    </span>
+    <Image
+      src={src.src}
+      alt="YandNow"
+      width={src.w}
+      height={src.h}
+      priority={priority}
+      // Height is set by the caller; width follows the artwork's ratio.
+      className={`w-auto ${className ?? ""}`}
+      sizes="180px"
+    />
   );
 }

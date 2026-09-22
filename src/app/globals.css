@@ -158,6 +158,20 @@
     color: var(--color-ink-70);
   }
 
+  /* ── Client marks ────────────────────────────────────── */
+  /* Shown in their own colours. Greyscaling third-party trademarks flattened
+     the inherently pale ones (Boeing, Bharat Petroleum) into near-nothing, and
+     these marks are the credibility signal — they earn full colour. */
+  .logo-mark {
+    transition: opacity 400ms var(--ease-out-soft);
+  }
+  .marquee-host:hover .logo-mark {
+    opacity: 0.55;
+  }
+  .marquee-host .logo-mark:hover {
+    opacity: 1;
+  }
+
   /* ── Hairline rules ──────────────────────────────────── */
   .rule {
     height: 1px;

@@ -37,20 +37,6 @@ export default function Hero() {
         controlStyle={reduce ? undefined : { opacity: copyFade, pointerEvents: controlHits }}
       />
 
-      {/* Structure lines, laid over the footage so the grid still reads */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1]">
-        <div className="shell h-full">
-          <div className="grid h-full grid-cols-4 lg:grid-cols-12">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div
-                key={i}
-                className={`border-l border-white/[0.07] ${i > 3 ? "hidden lg:block" : ""} ${i === 11 ? "border-r" : ""}`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
       <motion.div
         className="shell relative z-10 grid min-h-[100svh] grid-rows-[auto_1fr_auto] pt-[104px] pb-8"
         style={reduce ? undefined : { opacity: copyFade }}
@@ -78,9 +64,13 @@ export default function Hero() {
         >
           <h1 className="display-xl hero-copy font-semibold">
             {["Skills that hold", "up on the floor."].map((line, i) => (
-              <span key={line} className="block overflow-hidden pb-[0.045em]">
+              // Same trick as MaskLines: the descender room lives on the inner
+              // span so the clip box grows to contain the tail of the "p" in
+              // "up", and the 110% hidden offset stays measured against that
+              // same box.
+              <span key={line} className="-mb-[0.22em] block overflow-hidden">
                 <motion.span
-                  className="block"
+                  className="block pb-[0.28em]"
                   initial={reduce ? { y: 0 } : { y: "110%" }}
                   animate={{ y: "0%" }}
                   transition={{ duration: 1.15, delay: 0.24 + i * 0.09, ease: EASE }}
@@ -144,9 +134,9 @@ export default function Hero() {
           >
             <span className="h-8 w-[3px] shrink-0 bg-cyan-brand" />
             <p className="font-mono text-[0.625rem] leading-relaxed tracking-[0.11em] text-white/60 uppercase">
-              Arc welding practical
+              Advanced manufacturing
               <br />
-              CRISP · Bhopal
+              Technology &amp; robotics labs
             </p>
           </motion.div>
 

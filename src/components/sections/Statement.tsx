@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import ArrowLink from "@/components/ArrowLink";
 
@@ -22,6 +23,13 @@ export default function Statement() {
 
   const words = TEXT.split(" ");
 
+  // Each word brightens over a 4-word-wide window. Naively that window is
+  // `[i/n, (i+4)/n]`, which runs past 1 for the last four words — so scroll
+  // ended before they finished and the tail of the sentence stayed grey. Scale
+  // the step so the final word's window closes exactly at progress 1.
+  const LEAD = 4;
+  const step = 1 / (words.length - 1 + LEAD);
+
   return (
     <section className="bg-paper-warm pt-24 pb-20 md:pt-32 md:pb-24">
       <div className="shell">
@@ -37,7 +45,7 @@ export default function Statement() {
                 <Word
                   key={`${w}-${i}`}
                   progress={scrollYProgress}
-                  range={[i / words.length, (i + 4) / words.length]}
+                  range={[i * step, (i + LEAD) * step]}
                   reduce={!!reduce}
                 >
                   {w}
@@ -45,8 +53,29 @@ export default function Statement() {
               ))}
             </p>
 
-            <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4">
-              <ArrowLink href="/about">How we work</ArrowLink>
+            <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <Link
+                href="/about"
+                className="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 font-medium text-paper-warm transition-colors duration-300 hover:bg-indigo-brand"
+              >
+                How we work
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  aria-hidden
+                  className="transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1"
+                >
+                  <path
+                    d="M2 7h10M8 3l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
               <ArrowLink href="/impact">Programme archive</ArrowLink>
             </div>
           </div>

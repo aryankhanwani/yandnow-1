@@ -4,7 +4,8 @@ import Frame from "@/components/Frame";
 import Method from "@/components/sections/Method";
 import PartnerMarquee from "@/components/sections/PartnerMarquee";
 import Faq from "@/components/Faq";
-import { faqs, metrics } from "@/lib/site";
+import Leadership from "@/components/sections/Leadership";
+import { faqs, leadership, metrics } from "@/lib/site";
 import {
   Counter,
   MaskLines,
@@ -266,8 +267,13 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <Leadership
+        people={leadership}
+        intro="Two seats, both operational. Neither of us has an office we cannot be pulled out of when a programme needs a decision on the ground."
+      />
+
       <Faq items={faqs} />
-      <PartnerMarquee tone="dark" />
+      <PartnerMarquee />
     </>
   );
 }

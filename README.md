@@ -19,7 +19,7 @@ npm run lint
 | `/` | Full-bleed video hero, partner marquee, scroll-scrubbed position statement, sticky six-vertical scroller, metrics, four-step method, pinned horizontal gallery, footprint, testimonials |
 | `/solutions` | Index of the six verticals + what every programme includes |
 | `/solutions/[slug]` | One page per vertical — audience, modules, formats, gallery, related programmes, next-vertical link |
-| `/about` | Principles, metrics, six-year timeline, method, trainers, FAQ |
+| `/about` | Principles, metrics, six-year timeline, method, trainers, leadership, FAQ |
 | `/impact` | Verified outcomes, filterable programme archive, counting methodology |
 | `/contact` | Enquiry form + direct details + FAQ |
 
@@ -122,6 +122,28 @@ It writes optimised webp into `public/img` and regenerates
 generated — edit the manifest, not the output. Photos are consumed through
 [`Frame.tsx`](src/components/Frame.tsx), which wires up the placeholder,
 intrinsic size and hairline border.
+
+## Home page carousel
+
+The testimonials block advances on a 7s timer and stops permanently the moment
+a visitor touches an arrow or a dash — a timer that resumes yanks the quote out
+from under someone mid-sentence. It also only runs while the section is on
+screen, so returning to the page doesn't land you several quotes along. The
+active dash doubles as the countdown. `prefers-reduced-motion` disables the
+timer entirely, leaving the arrows.
+
+## Leadership section
+
+`/about` ends with a leadership block driven by `leadership` in
+[`src/lib/site.ts`](src/lib/site.ts). Portraits are **optional**: a person with
+no `photo` renders a monogram plate rather than an empty frame, so the section
+ships before the photography does. See
+[`public/team/README.md`](public/team/README.md) for the file naming and crop.
+
+The names and bios currently in that array are placeholders — see the note in
+`site.ts`. The bios describe each seat's remit rather than anybody's career,
+deliberately: inventing history for a real person is worse than leaving it
+blank.
 
 ## Notes
 

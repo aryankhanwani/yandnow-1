@@ -346,6 +346,44 @@ export const method = [
 ];
 
 /* ──────────────────────────────────────────────────────────
+   Leadership
+
+   PLACEHOLDER CONTENT. The names below are not real and the bios describe the
+   remit of each seat rather than anybody's career — inventing history for a
+   real person is worse than leaving it blank. Replace `name`, `bio` and
+   `linkedin`, then drop a portrait at public/team/<slug>.webp and set `photo`.
+   Until `photo` is set the card falls back to a monogram plate, so the section
+   is presentable with no imagery at all.
+   ────────────────────────────────────────────────────────── */
+export type Leader = {
+  slug: string;
+  name: string;
+  role: string;
+  bio: string;
+  focus: string[];
+  linkedin?: string;
+  /** Portrait path, e.g. "/team/asha-menon.webp". Omit for the monogram plate. */
+  photo?: string;
+};
+
+export const leadership: Leader[] = [
+  {
+    slug: "founder",
+    name: "Founder name",
+    role: "Founder & Managing Director",
+    bio: "Sets what YandNow will and will not take on. Owns the partner relationships that turn a mandate into a funded programme, and holds the line on the four rules above when a client would rather we bent them.",
+    focus: ["Partnerships", "Programme strategy"],
+  },
+  {
+    slug: "co-founder",
+    name: "Co-founder name",
+    role: "Co-founder & Director, Delivery",
+    bio: "Runs everything between the signed scope and the certificate — centres, mobile units, trainer bench and the assessment calendar. Accountable for the numbers we publish on the Impact page being the ones the field actually returned.",
+    focus: ["Delivery & operations", "Trainer capability"],
+  },
+];
+
+/* ──────────────────────────────────────────────────────────
    Programme archive — real delivery history
    ────────────────────────────────────────────────────────── */
 export type Programme = {
@@ -487,26 +525,9 @@ export const programmes: Programme[] = [
   },
 ];
 
-export const partners = [
-  "TotalEnergies",
-  "Gulf Oil",
-  "BPCL",
-  "IOCL",
-  "Ashok Leyland",
-  "NABARD",
-  "Reliance Foundation",
-  "Essilor",
-  "NAREDCO",
-  "Everest Industries",
-  "CRISP",
-  "GIZ",
-  "ASDC",
-  "Veedol",
-  "Skill Meghalaya",
-  "Hydrocarbon SSC",
-  "OneSight",
-  "Skill India",
-];
+/* Client and partner marks now come from src/lib/brand.ts, generated from the
+   artwork in public/y&now client logos by scripts/build-brand.mjs. */
+
 
 export const testimonials = [
   {

@@ -54,7 +54,20 @@ export default function Nav() {
               aria-label={`${site.name} — home`}
               className="group relative z-10 -ml-1 flex items-center gap-2.5 px-1 py-2"
             >
-              <Logo className={onDark ? "text-paper-warm" : "text-indigo-brand"} />
+              {/* Both tones are rendered and cross-faded: swapping `src` on a
+                  single <Image> flashes while the new file decodes. */}
+              <span className="relative block h-[30px] md:h-[35px]">
+                <Logo
+                  tone="colour"
+                  priority
+                  className={`h-full transition-opacity duration-500 ${onDark ? "opacity-0" : "opacity-100"}`}
+                />
+                <Logo
+                  tone="white"
+                  priority
+                  className={`absolute inset-0 h-full transition-opacity duration-500 ${onDark ? "opacity-100" : "opacity-0"}`}
+                />
+              </span>
             </Link>
 
             <nav className="hidden items-center gap-1 md:flex">

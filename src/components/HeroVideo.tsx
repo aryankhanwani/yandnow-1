@@ -6,26 +6,26 @@ import { motion, useReducedMotion, type MotionStyle } from "motion/react";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
- * Full-bleed hero footage: a 5.5s arc-welding loop from the CRISP fabrication
- * programme, cut in two art-directed crops — 2:1 landscape for wide viewports,
- * 3:4 framed on the welder for phones, where the landscape file would
- * `object-cover` down to a meaningless vertical sliver.
+ * Full-bleed hero footage, in two art-directed crops — 16:9 for wide viewports,
+ * 3:4 for phones, where the landscape file would `object-cover` down to a
+ * meaningless vertical sliver.
  *
  * The crop is chosen in JS rather than with `media` on `<source>`: that
  * attribute is unreliable inside `<video>`, and a browser that ignores it takes
  * the *first* source — handing desktop the portrait crop. Failing towards the
  * poster is fine; failing towards the wrong crop is not.
+ *
+ * H.264 only. See scripts/build-video.mjs — VP9 measured larger at equal SSIM
+ * on this footage, so a WebM would be a second file that buys nothing.
  */
 const SOURCES = {
   wide: {
-    webm: "/video/hero-welding.webm",
-    mp4: "/video/hero-welding.mp4",
-    poster: "/video/hero-welding-poster.webp",
+    mp4: "/video/hero-lab.mp4",
+    poster: "/video/hero-lab-poster.webp",
   },
   portrait: {
-    webm: "/video/hero-welding-portrait.webm",
-    mp4: "/video/hero-welding-portrait.mp4",
-    poster: "/video/hero-welding-portrait-poster.webp",
+    mp4: "/video/hero-lab-portrait.mp4",
+    poster: "/video/hero-lab-portrait-poster.webp",
   },
 } as const;
 
@@ -132,18 +132,17 @@ export default function HeroVideo({
             aria-hidden
             tabIndex={-1}
           >
-            <source src={src.webm} type="video/webm" />
             <source src={src.mp4} type="video/mp4" />
           </motion.video>
         )}
       </motion.div>
 
-      {/* One light, *neutral* scrim. Tinting with indigo washed the footage
-          blue and flattened it; near-black at a third just takes the edge off
-          the highlights. Legibility over the welder's pale shirt is carried by
-          the type's own shadow (see `.hero-copy` in globals.css), not by
-          drowning the picture. */}
-      <div aria-hidden className="absolute inset-0 z-[2] bg-ink/38" />
+      {/* One flat *neutral* scrim — near-black, never indigo, which tinted the
+          whole clip blue and flattened it. This footage is a white-walled lab:
+          far brighter than the workshop it replaced, so it needs a heavier hand
+          than that clip did. The type's own shadow (`.hero-copy` in
+          globals.css) carries the rest. */}
+      <div aria-hidden className="absolute inset-0 z-[2] bg-ink/60" />
 
       {/* Background video that cannot be stopped fails WCAG 2.2.2 once it runs
           past five seconds, and this loop does. */}

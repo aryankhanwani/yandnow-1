@@ -44,7 +44,7 @@ export default function HorizontalGallery() {
             </Reveal>
             <MaskLines
               as="h2"
-              className="display-lg mt-6 max-w-[20ch] font-semibold"
+              className="mt-6 max-w-[18ch] font-display text-[clamp(2.5rem,6.2vw,5.25rem)] leading-[0.96] font-semibold tracking-[-0.04em]"
               lines={["Not stock photos.", "Our own cohorts."]}
             />
           </div>

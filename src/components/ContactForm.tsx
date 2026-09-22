@@ -6,6 +6,15 @@ import { MaskLines, Reveal } from "./motion-primitives";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/**
+ * Field labels keep the site's mono/uppercase label voice but run larger than
+ * the shared `.eyebrow` (11px) and a step darker than `ink-30`, which measured
+ * 2.3:1 against paper — too faint to read on the page you have to type into.
+ * Scoped here rather than changed on `.eyebrow`, which every other section uses.
+ */
+const LABEL =
+  "block font-mono text-[0.8125rem] leading-none font-medium tracking-[0.11em] text-ink-70 uppercase transition-colors duration-300 group-focus-within:text-indigo-brand";
+
 type Status = "idle" | "sending" | "sent";
 
 /**
@@ -168,7 +177,7 @@ function Field({
     // `focus-within` on the label, not `peer-*`: the label text precedes the
     // input, and peer selectors only reach forward.
     <label className="group block">
-      <span className="eyebrow block text-ink-30 transition-colors duration-300 group-focus-within:text-indigo-brand">
+      <span className={LABEL}>
         {label}
         {required && <span className="ml-1 text-cyan-brand">*</span>}
       </span>
@@ -204,9 +213,7 @@ function Select({
 }) {
   return (
     <label className="group block">
-      <span className="eyebrow block text-ink-30 transition-colors duration-300 group-focus-within:text-indigo-brand">
-        {label}
-      </span>
+      <span className={LABEL}>{label}</span>
       <select
         name={name}
         defaultValue=""

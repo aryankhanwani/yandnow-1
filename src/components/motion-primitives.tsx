@@ -138,18 +138,29 @@ export function MaskLines({
   return (
     <Tag className={className}>
       {lines.map((line, i) => (
-        // The trigger lives on the clip container, not the moving span: a span
-        // held at y:108% is clipped out of existence by its own parent, so an
-        // IntersectionObserver on it would never report a hit.
+        // Two things are load-bearing here.
+        //
+        // 1. The in-view trigger lives on the clip container, not the moving
+        //    span: a span held at y:108% is clipped out of existence by its own
+        //    parent, so an observer on it would never report a hit.
+        //
+        // 2. The descender room (`pb`) belongs on the INNER span, not the clip.
+        //    Display text runs a line-height below 1, so glyph tails like g, p
+        //    and y fall outside the line box and the clip shaves them off. Put
+        //    the padding inside and the inner span grows to contain its own
+        //    tails — which also keeps the 108% hidden offset correct, since it
+        //    is a percentage of that same (now taller) box. Padding on the clip
+        //    instead would make the box taller than the travel and leave the
+        //    text peeking out before it animates.
         <motion.span
           key={i}
-          className="block overflow-hidden pb-[0.06em]"
+          className="-mb-[0.22em] block overflow-hidden"
           initial="hidden"
           whileInView="shown"
           viewport={{ once: true, amount: 0.3 }}
         >
           <motion.span
-            className={`block ${lineClassName ?? ""}`}
+            className={`block pb-[0.28em] ${lineClassName ?? ""}`}
             variants={{
               hidden: reduce ? { y: "0%", opacity: 1 } : { y: "108%", opacity: 0 },
               shown: {

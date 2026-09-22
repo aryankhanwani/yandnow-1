@@ -33,6 +33,17 @@ export default async function SolutionPage({ params }: PageProps<"/solutions/[sl
   const i = solutions.findIndex((x) => x.slug === s.slug);
   const next = solutions[(i + 1) % solutions.length];
   const related = programmes.filter((p) => p.vertical === s.short).slice(0, 3);
+  // Verticals have 1–3 archived programmes. A fixed 3-up grid left one or two
+  // dead cells showing the divider colour, so the track follows the count and
+  // the cards scale up to fill the row instead.
+  const relatedCols =
+    related.length === 1
+      ? "md:grid-cols-1"
+      : related.length === 2
+        ? "md:grid-cols-2"
+        : "md:grid-cols-3";
+  const roomy = related.length < 3;
+  const solo = related.length === 1;
   const accentText = s.accent === "cyan" ? "text-cyan-brand" : "text-indigo-brand";
 
   return (
@@ -166,30 +177,71 @@ export default async function SolutionPage({ params }: PageProps<"/solutions/[sl
               lines={["Recent programmes", "in this vertical."]}
             />
 
-            <RevealGroup className="mt-12 grid gap-px border border-line bg-line md:grid-cols-3" stagger={0.07}>
-              {related.map((p) => (
-                <RevealItem key={p.title} className="bg-paper-warm p-7" y={18}>
-                  <p className="font-mono text-[0.6875rem] tracking-[0.14em] text-ink-30 tabular-nums">
-                    {p.year}
-                  </p>
-                  <h3 className="mt-4 font-display text-[1.1875rem] leading-[1.25] font-semibold tracking-[-0.025em]">
-                    {p.title}
-                  </h3>
-                  <p className="mt-3 text-sm text-ink-50">
-                    {p.partner} · {p.place}
-                  </p>
-                  <ul className="mt-5 flex flex-wrap gap-1.5">
-                    {p.trades.map((t) => (
-                      <li
-                        key={t}
-                        className="rounded-full border border-line px-2.5 py-1 text-[0.75rem] text-ink-50"
-                      >
-                        {t}
-                      </li>
-                    ))}
-                  </ul>
-                </RevealItem>
-              ))}
+            <RevealGroup
+              className={`mt-12 grid gap-px border border-line bg-line ${relatedCols}`}
+              stagger={0.07}
+            >
+              {related.map((p) =>
+                solo ? (
+                  // A lone card owns the full row, so its content runs across
+                  // that width instead of hugging the left edge of it.
+                  <RevealItem key={p.title} className="bg-paper-warm p-8 md:p-10" y={18}>
+                    <div className="grid gap-x-10 gap-y-5 md:grid-cols-[8rem_1fr_auto] md:items-start">
+                      <p className="font-mono text-[0.6875rem] tracking-[0.14em] text-ink-30 tabular-nums">
+                        {p.year}
+                      </p>
+                      <div>
+                        <h3 className="max-w-[26ch] font-display text-[1.4375rem] leading-[1.25] font-semibold tracking-[-0.025em] md:text-[1.625rem]">
+                          {p.title}
+                        </h3>
+                        <p className="mt-3 text-[0.9375rem] text-ink-50">
+                          {p.partner} · {p.place}
+                        </p>
+                      </div>
+                      <ul className="flex flex-wrap gap-1.5 md:justify-end">
+                        {p.trades.map((t) => (
+                          <li
+                            key={t}
+                            className="rounded-full border border-line px-2.5 py-1 text-[0.75rem] text-ink-50"
+                          >
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </RevealItem>
+                ) : (
+                  <RevealItem
+                    key={p.title}
+                    className={`bg-paper-warm ${roomy ? "p-8 md:p-9" : "p-7"}`}
+                    y={18}
+                  >
+                    <p className="font-mono text-[0.6875rem] tracking-[0.14em] text-ink-30 tabular-nums">
+                      {p.year}
+                    </p>
+                    <h3
+                      className={`mt-4 font-display leading-[1.25] font-semibold tracking-[-0.025em] ${
+                        roomy ? "text-[1.3125rem]" : "text-[1.1875rem]"
+                      }`}
+                    >
+                      {p.title}
+                    </h3>
+                    <p className="mt-3 text-sm text-ink-50">
+                      {p.partner} · {p.place}
+                    </p>
+                    <ul className="mt-5 flex flex-wrap gap-1.5">
+                      {p.trades.map((t) => (
+                        <li
+                          key={t}
+                          className="rounded-full border border-line px-2.5 py-1 text-[0.75rem] text-ink-50"
+                        >
+                          {t}
+                        </li>
+                      ))}
+                    </ul>
+                  </RevealItem>
+                ),
+              )}
             </RevealGroup>
 
             <Reveal delay={0.1}>
@@ -222,6 +274,29 @@ export default async function SolutionPage({ params }: PageProps<"/solutions/[sl
               <p className="mt-4 max-w-[46ch] text-[1.0625rem] leading-relaxed text-ink-50">
                 {next.summary}
               </p>
+
+              {/* Styled as a button but rendered as a span: the whole block is
+                  already one <Link>, and nesting an anchor inside an anchor is
+                  invalid and breaks keyboard navigation. */}
+              <span className="mt-8 inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 font-medium text-paper-warm transition-colors duration-300 group-hover:bg-indigo-brand">
+                Open {next.short.toLowerCase()}
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  aria-hidden
+                  className="transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1"
+                >
+                  <path
+                    d="M2 7h10M8 3l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </div>
             <div className="overflow-hidden md:w-[22rem]">
               <Frame
