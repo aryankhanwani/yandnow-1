@@ -85,7 +85,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About YandNow"
         lines={["We are a training", "company, not a", "certificate mill."]}
-        lede="YandNow began in 2020 with a handful of foundation trades in Bhopal. Six years on we run six verticals across nineteen states — and the test has never changed: can the person we trained do the job on Monday without supervision?"
+        lede="YandNow began in 2020 with a handful of foundation trades in Bhopal. 6 years on we run 6 verticals across 19 states — and the test has never changed: can the person we trained do the job on Monday without supervision?"
         photo="welding-shopfloor"
         photoAlt="A welding workshop floor with equipment laid out and trainees at the benches"
         breadcrumb={[

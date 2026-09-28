@@ -65,7 +65,7 @@ export default function Nav() {
                   className={`h-full transition-opacity duration-500 ${onDark ? "opacity-0" : "opacity-100"}`}
                 />
                 <Logo
-                  tone="white"
+                  tone="grey"
                   priority
                   className={`absolute inset-0 h-full transition-opacity duration-500 ${onDark ? "opacity-100" : "opacity-0"}`}
                 />

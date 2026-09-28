@@ -98,7 +98,7 @@ export default function Footer() {
       {/* Sitemap */}
       <div className="shell grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <Logo tone="white" className="h-7" />
+          <Logo tone="grey" className="h-7" />
           <p className="mt-4 max-w-[30ch] text-sm leading-relaxed text-white/45">
             {site.tagline} Workforce capability built where the work happens.
           </p>
