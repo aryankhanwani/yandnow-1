@@ -25,7 +25,7 @@ export default function Faq({
           <MaskLines
             as="h2"
             className="display-md mt-6 max-w-[14ch] font-semibold"
-            lines={["Before you", "ask us."]}
+            lines={["Questions", "people ask."]}
           />
         </div>
 

@@ -7,7 +7,7 @@ import { method } from "@/lib/site";
 import { MaskLines, Reveal } from "@/components/motion-primitives";
 
 /**
- * Four steps, each a full-height panel. The step number scrubs through a
+ * Five steps, each a full-height panel. The step number scrubs through a
  * sticky counter on the left while the panels pass — a progress read-out you
  * don't have to look for.
  */
@@ -24,18 +24,18 @@ export default function Method() {
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <Reveal>
-              <p className="eyebrow text-cyan-brand">The method</p>
+              <p className="eyebrow text-cyan-brand">The Y&amp;Now loop</p>
             </Reveal>
             <MaskLines
               as="h2"
               className="display-lg mt-6 max-w-[22ch] font-semibold"
-              lines={["How a programme", "actually gets built."]}
+              lines={["Five steps.", "One loop."]}
             />
           </div>
           <Reveal delay={0.12}>
             <p className="max-w-[36ch] text-[0.9375rem] leading-relaxed text-white/55">
-              Four stages, run in order, every time — whether the client is an OEM
-              service network or a district livelihood mission.
+              Every programme runs through the same five steps, in order — whether
+              it is built for a plant floor, a dealer network or a school.
             </p>
           </Reveal>
         </div>
