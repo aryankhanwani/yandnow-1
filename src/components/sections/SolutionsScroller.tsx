@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import Frame from "@/components/Frame";
-import { solutions } from "@/lib/site";
+import { otherRoutes, solutions } from "@/lib/site";
 import { MaskLines, Reveal } from "@/components/motion-primitives";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -18,25 +18,25 @@ export default function SolutionsScroller() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="solutions" className="relative bg-paper-warm pt-8 pb-24 md:pt-12 md:pb-32">
+    <section id="routes" className="relative scroll-mt-24 bg-paper-warm pt-8 pb-24 md:pt-12 md:pb-32">
       <div className="shell">
         {/* Section head */}
         <div className="grid gap-8 border-b border-line pb-14 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <Reveal>
-              <p className="eyebrow text-indigo-brand">Solutions · 06</p>
+              <p className="eyebrow text-indigo-brand">Find your route</p>
             </Reveal>
             <MaskLines
               as="h2"
               className="display-lg mt-6 max-w-[20ch] font-semibold"
-              lines={["Six verticals,", "one delivery spine."]}
+              lines={["Seven audiences.", "One approach."]}
             />
           </div>
           <Reveal delay={0.12}>
             <p className="max-w-[40ch] text-[0.9375rem] leading-relaxed text-ink-50">
-              The audience changes. The method does not: diagnose the real gap, build
-              the curriculum backwards from it, deliver on live equipment, then verify
-              the outcome in the field.
+              Start where you sit. The audience changes; the approach does not.
+              Every programme runs on the same loop — assess, learn, apply, perform,
+              improve.
             </p>
           </Reveal>
         </div>
@@ -143,6 +143,42 @@ export default function SolutionsScroller() {
             </li>
           ))}
         </ul>
+
+        {/* ── The two audiences without a solution page of their own ── */}
+        <div className="mt-12 lg:mt-20">
+          <Reveal>
+            <p className="eyebrow text-ink-30">Also starting here</p>
+          </Reveal>
+          <ul className="mt-6 grid gap-px border border-line bg-line md:grid-cols-2">
+            {otherRoutes.map((r, i) => (
+              <li key={r.title} className="bg-paper-warm">
+                <Link
+                  href={i === 1 ? "/solutions#learners" : "/contact"}
+                  className="group flex h-full flex-col p-6 transition-colors duration-400 hover:bg-white md:p-8"
+                >
+                  <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-indigo-brand tabular-nums">
+                    {String(solutions.length + i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-3 font-display text-[1.375rem] leading-[1.15] font-semibold tracking-[-0.03em] md:text-[1.5rem]">
+                    {r.title}
+                  </h3>
+                  <p className="mt-2 max-w-[44ch] flex-1 text-[0.9375rem] leading-relaxed text-ink-50">
+                    {r.body}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-indigo-brand">
+                    <span className="relative">
+                      {i === 1 ? "Find a course" : "Talk to Y&Now"}
+                      <span className="absolute -bottom-[3px] left-0 h-px w-full origin-left scale-x-0 bg-indigo-brand transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
+                    </span>
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[3px] group-hover:-translate-y-[3px]">
+                      <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
@@ -214,7 +250,7 @@ function Entry({
                 {s.summary}
               </p>
               <ul className="mt-5 flex flex-wrap gap-x-2 gap-y-2">
-                {s.audience.slice(0, 3).map((a) => (
+                {s.cover.slice(0, 3).map((a) => (
                   <li
                     key={a}
                     className="rounded-full border border-line bg-paper px-3 py-1.5 text-xs font-medium text-ink-50"
@@ -225,7 +261,7 @@ function Entry({
               </ul>
               <span className="mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-indigo-brand">
                 <span className="relative">
-                  View this vertical
+                  {s.linkLabel}
                   <span className="absolute -bottom-[3px] left-0 h-px w-full origin-left scale-x-0 bg-indigo-brand transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
                 </span>
                 <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[3px] group-hover:-translate-y-[3px]">

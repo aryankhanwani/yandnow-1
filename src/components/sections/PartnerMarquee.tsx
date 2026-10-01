@@ -24,8 +24,11 @@ export default function PartnerMarquee() {
       className="marquee-host relative overflow-hidden border-y border-line bg-paper py-7"
       aria-label="Clients, partners and funders"
     >
-      <div className="shell mb-6">
-        <p className="eyebrow text-ink-30">Delivered with</p>
+      <div className="shell mb-6 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
+        <p className="eyebrow text-ink-30">Organisations we work with</p>
+        <p className="text-[0.8125rem] leading-snug text-ink-50">
+          Enterprise, institutional and workforce-learning environments.
+        </p>
       </div>
 
       <div className="relative flex w-max" style={{ ["--marquee-duration" as string]: "96s" }}>

@@ -15,6 +15,7 @@ export default function PageHero({
   photoAlt,
   breadcrumb,
   meta,
+  cta,
 }: {
   eyebrow: string;
   lines: string[];
@@ -23,13 +24,15 @@ export default function PageHero({
   photoAlt: string;
   breadcrumb?: { label: string; href: string }[];
   meta?: { label: string; value: string }[];
+  /** The page's one primary action. */
+  cta?: { label: string; href: string };
 }) {
   return (
     <section className="relative overflow-hidden bg-indigo-ink text-paper-warm">
       <div className="shell pt-[132px] pb-16 md:pt-[168px] md:pb-24">
         {breadcrumb && (
           <Reveal>
-            <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2">
+            <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-x-2 gap-y-1">
               {breadcrumb.map((b, i) => (
                 <span key={b.href} className="flex items-center gap-2">
                   {i > 0 && <span className="text-white/25">/</span>}
@@ -59,6 +62,20 @@ export default function PageHero({
             <Reveal delay={0.16}>
               <p className="lede mt-8 max-w-[52ch] text-white/60">{lede}</p>
             </Reveal>
+
+            {cta && (
+              <Reveal delay={0.2}>
+                <Link
+                  href={cta.href}
+                  className="group mt-9 inline-flex items-center gap-3 rounded-full bg-paper-warm px-6 py-3.5 font-medium text-ink transition-colors duration-300 hover:bg-cyan-brand sm:px-7 sm:py-4"
+                >
+                  {cta.label}
+                  <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden className="shrink-0 transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
+                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </Reveal>
+            )}
 
             {meta && (
               <Reveal delay={0.22}>

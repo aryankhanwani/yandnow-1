@@ -63,11 +63,11 @@ export default function Hero() {
           style={reduce ? undefined : { y: copyY }}
         >
           <h1 className="display-xl hero-copy font-semibold">
-            {["Skills that hold", "up on the floor."].map((line, i) => (
+            {["Learning that", "leads somewhere."].map((line, i) => (
               // Same trick as MaskLines: the descender room lives on the inner
-              // span so the clip box grows to contain the tail of the "p" in
-              // "up", and the 110% hidden offset stays measured against that
-              // same box.
+              // span so the clip box grows to contain the tail of the "g" in
+              // "Learning", and the 110% hidden offset stays measured against
+              // that same box.
               <span key={line} className="-mb-[0.22em] block overflow-hidden">
                 <motion.span
                   className="block pb-[0.28em]"
@@ -77,7 +77,7 @@ export default function Hero() {
                 >
                   {i === 1 ? (
                     <>
-                      up on the <span className="text-cyan-brand">floor.</span>
+                      leads <span className="text-cyan-brand">somewhere.</span>
                     </>
                   ) : (
                     line
@@ -97,16 +97,16 @@ export default function Hero() {
                 wrapper it resolves against the parent's 16px, not the lede's
                 own size, so the measure drifted wider as the font scaled up. */}
             <p className="lede hero-copy max-w-[58ch] text-white/85">
-              We train welders, technicians, lab staff and machine operators — on
-              live equipment, where the work actually happens.
+              Practical skills for real work. We build programmes around the role
+              people actually do — then measure whether it changed anything.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-1">
-              <Link
-                href="/solutions"
+              <a
+                href="#routes"
                 className="group inline-flex items-center gap-3 rounded-full bg-paper-warm px-7 py-4 font-medium text-ink transition-colors duration-300 hover:bg-cyan-brand"
               >
-                Explore six verticals
+                Find your route
                 <svg
                   width="15"
                   height="15"
@@ -123,13 +123,13 @@ export default function Hero() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </Link>
+              </a>
               <Link
-                href="/impact"
+                href="/contact"
                 className="group inline-flex items-center gap-2 py-4 font-medium text-white/80 transition-colors duration-300 hover:text-white"
               >
                 <span className="relative">
-                  See the programmes
+                  Talk to Y&amp;Now
                   <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-cyan-brand transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
                 </span>
               </Link>
@@ -171,7 +171,7 @@ export default function Hero() {
   );
 }
 
-/* Cycles the six verticals so the fold states the full scope. */
+/* Cycles the six solution areas so the fold states the full scope. */
 function VerticalTicker() {
   const [i, setI] = useState(0);
   const reduce = useReducedMotion();

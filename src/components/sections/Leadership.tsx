@@ -12,11 +12,13 @@ export default function Leadership({
   eyebrow = "Leadership",
   lines = ["The people", "accountable for it."],
   intro,
+  advisers,
 }: {
   people: Leader[];
   eyebrow?: string;
   lines?: string[];
   intro?: string;
+  advisers?: readonly { name: string; bio: string }[];
 }) {
   return (
     <section className="border-t border-line bg-paper py-24 md:py-32">
@@ -41,11 +43,15 @@ export default function Leadership({
           )}
         </div>
 
-        {/* Column count follows the headcount so two people don't leave a
-            hole in a three-up grid. */}
+        {/* Column count follows the headcount so two or four people don't
+            leave a hole in a three-up grid. */}
         <RevealGroup
-          className={`mt-16 grid gap-12 sm:grid-cols-2 lg:gap-14 ${
-            people.length > 2 ? "lg:grid-cols-3" : ""
+          className={`mt-14 grid gap-12 sm:grid-cols-2 md:mt-16 lg:gap-14 ${
+            people.length === 4
+              ? "xl:grid-cols-4 xl:gap-10"
+              : people.length > 2
+                ? "lg:grid-cols-3"
+                : ""
           }`}
           stagger={0.1}
         >
@@ -54,11 +60,11 @@ export default function Leadership({
               <article className="flex flex-col">
                 <Portrait person={person} />
 
-                <div className="mt-7">
-                  <h3 className="font-display text-[1.5rem] leading-[1.15] font-semibold tracking-[-0.03em] md:text-[1.75rem]">
+                <div className="mt-6 sm:mt-7">
+                  <h3 className="font-display text-[1.5rem] leading-[1.15] font-semibold tracking-[-0.03em] md:text-[1.625rem]">
                     {person.name}
                   </h3>
-                  <p className="mt-2 text-[0.9375rem] font-medium text-indigo-brand">
+                  <p className="mt-2 text-[0.9375rem] leading-snug font-medium text-indigo-brand">
                     {person.role}
                   </p>
 
@@ -111,6 +117,29 @@ export default function Leadership({
             </RevealItem>
           ))}
         </RevealGroup>
+
+        {advisers && advisers.length > 0 && (
+          <div className="mt-20 grid gap-8 border-t border-line pt-12 md:mt-24 lg:grid-cols-[auto_1fr] lg:gap-20">
+            <div className="lg:w-[13rem]">
+              <Reveal>
+                <p className="eyebrow text-indigo-brand">Advisers</p>
+              </Reveal>
+            </div>
+            <RevealGroup className="grid gap-10 sm:grid-cols-2 sm:gap-12" stagger={0.08}>
+              {advisers.map((a) => (
+                <RevealItem key={a.name} y={18}>
+                  <h3 className="font-display text-[1.375rem] leading-[1.15] font-semibold tracking-[-0.03em] md:text-[1.5rem]">
+                    {a.name}
+                  </h3>
+                  <span className="mt-4 block h-[2px] w-8 bg-cyan-brand" />
+                  <p className="mt-4 max-w-[46ch] text-[1.0625rem] leading-relaxed text-ink-70">
+                    {a.bio}
+                  </p>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -119,12 +148,12 @@ export default function Leadership({
 function Portrait({ person }: { person: Leader }) {
   if (person.photo) {
     return (
-      <div className="relative aspect-[4/5] w-full max-w-[20rem] overflow-hidden bg-ink/[0.04]">
+      <div className="relative aspect-[4/5] w-full max-w-[11rem] sm:max-w-[20rem] overflow-hidden bg-ink/[0.04]">
         <Image
           src={person.photo}
           alt={`${person.name}, ${person.role}`}
           fill
-          sizes="(min-width: 640px) 20rem, 100vw"
+          sizes="(min-width: 640px) 20rem, 11rem"
           className="object-cover"
         />
         <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink/10" />
@@ -143,13 +172,13 @@ function Portrait({ person }: { person: Leader }) {
 
   return (
     <div
-      className="relative flex aspect-[4/5] w-full max-w-[20rem] items-center justify-center overflow-hidden bg-indigo-ink"
+      className="relative flex aspect-[4/5] w-full max-w-[11rem] sm:max-w-[20rem] items-center justify-center overflow-hidden bg-indigo-ink"
       role="img"
       aria-label={`${person.name} — portrait to follow`}
     >
       <span
         aria-hidden
-        className="font-display text-[clamp(3rem,6vw,4.5rem)] leading-none font-semibold tracking-[-0.05em] text-white/15"
+        className="font-display text-[clamp(2.25rem,6vw,4.5rem)] leading-none font-semibold tracking-[-0.05em] text-white/15"
       >
         {initials || "&"}
       </span>
