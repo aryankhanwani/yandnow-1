@@ -26,7 +26,7 @@ export default function Logo({
   return (
     <Image
       src={src.src}
-      alt="Y&Now"
+      alt="YandNow"
       width={src.w}
       height={src.h}
       priority={priority}

@@ -40,18 +40,18 @@ export default function HorizontalGallery() {
         <div className="grid gap-8 border-b border-line pb-12 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <Reveal>
-              <p className="eyebrow text-indigo-brand">Gallery</p>
+              <p className="eyebrow text-indigo-brand">In the field</p>
             </Reveal>
             <MaskLines
               as="h2"
               className="mt-6 max-w-[18ch] font-display text-[clamp(2.5rem,6.2vw,5.25rem)] leading-[0.96] font-semibold tracking-[-0.04em]"
-              lines={["Y&Now", "in action."]}
+              lines={["Not stock photos.", "Our own cohorts."]}
             />
           </div>
           <Reveal delay={0.1}>
             <p className="max-w-[34ch] text-[0.9375rem] leading-relaxed text-ink-50">
-              The work, the people and the moments behind our programmes — workshops,
-              field delivery and partnerships across sectors and locations.
+              Every image on this site was taken on a live YandNow programme between
+              2020 and 2026.
             </p>
           </Reveal>
         </div>
@@ -89,13 +89,13 @@ export default function HorizontalGallery() {
             <div className="flex w-[26rem] shrink-0 items-center pr-16">
               <div>
                 <p className="display-md max-w-[16ch] font-semibold">
-                  Real work. Real learning. Real outcomes.
+                  Fourteen programmes, archived in full.
                 </p>
                 <Link
                   href="/impact"
                   className="group mt-7 inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 font-medium text-paper-warm transition-colors duration-300 hover:bg-indigo-brand"
                 >
-                  View case studies
+                  Open the archive
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
                     <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -135,7 +135,7 @@ export default function HorizontalGallery() {
             href="/impact"
             className="inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 font-medium text-paper-warm"
           >
-            View case studies
+            Open the archive
           </Link>
         </div>
       </div>

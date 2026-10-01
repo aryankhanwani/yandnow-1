@@ -29,18 +29,18 @@ export default function ArchiveExplorer({ programmes }: { programmes: Programme[
         <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <Reveal>
-              <p className="eyebrow text-indigo-brand">More work</p>
+              <p className="eyebrow text-indigo-brand">The archive</p>
             </Reveal>
             <MaskLines
               as="h2"
               className="display-lg mt-6 max-w-[18ch] font-semibold"
-              lines={["The programme", "archive, by year."]}
+              lines={["Filed by year,", "not by pitch."]}
             />
           </div>
 
           {/* Filter chips */}
           <Reveal delay={0.1}>
-            <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by solution area">
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by vertical">
               {verticals.map((v) => {
                 const active = filter === v;
                 return (
@@ -127,7 +127,7 @@ export default function ArchiveExplorer({ programmes }: { programmes: Programme[
                           <div>
                             <dl className="flex flex-wrap gap-x-10 gap-y-4">
                               <div>
-                                <dt className="eyebrow text-ink-30">Solution area</dt>
+                                <dt className="eyebrow text-ink-30">Vertical</dt>
                                 <dd className="mt-1.5 text-[0.9375rem] font-medium">
                                   {p.vertical}
                                 </dd>

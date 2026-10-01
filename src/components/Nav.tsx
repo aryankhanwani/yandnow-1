@@ -179,7 +179,7 @@ export default function Nav() {
                     : "bg-ink text-paper-warm hover:bg-indigo-brand"
                 }`}
               >
-                Talk to Y&amp;Now
+                Start a programme
                 <Arrow />
               </Link>
             </nav>
@@ -251,7 +251,7 @@ export default function Nav() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.42, duration: 0.6 }}
               >
-                <p className="eyebrow text-cyan-brand">Solutions</p>
+                <p className="eyebrow text-cyan-brand">Six verticals</p>
                 <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2">
                   {solutions.map((s) => (
                     <li key={s.slug}>
@@ -278,7 +278,7 @@ export default function Nav() {
                   onClick={() => setOpen(false)}
                   className="flex w-full items-center justify-center gap-2 rounded-full bg-cyan-brand px-6 py-4 font-medium text-indigo-ink"
                 >
-                  Talk to Y&amp;Now
+                  Start a programme
                   <Arrow />
                 </Link>
                 <a

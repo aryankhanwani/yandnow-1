@@ -5,9 +5,9 @@ import Method from "@/components/sections/Method";
 import PartnerMarquee from "@/components/sections/PartnerMarquee";
 import Faq from "@/components/Faq";
 import Leadership from "@/components/sections/Leadership";
-import Link from "next/link";
-import { advisers, beliefs, faqs, leadership } from "@/lib/site";
+import { faqs, leadership, metrics } from "@/lib/site";
 import {
+  Counter,
   MaskLines,
   Parallax,
   Reveal,
@@ -18,8 +18,27 @@ import {
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Y&Now is a learning brand built around practical outcomes — helping people and organisations build useful skills, grow with confidence and stay ready for what comes next.",
+    "YandNow is a skill development organisation delivering hands-on technical training across India — six verticals, nineteen states, fixed and mobile centres.",
 };
+
+const PRINCIPLES = [
+  {
+    title: "Practicals are 70% of contact hours",
+    body: "A trade is muscle memory before it is theory. If a module cannot be demonstrated on equipment, it does not go into the curriculum.",
+  },
+  {
+    title: "Assessment is somebody else's job",
+    body: "We do not grade our own work. Every certification runs through an independent assessor, so the credential means something to an employer who has never heard of us.",
+  },
+  {
+    title: "Delivery travels to the cohort",
+    body: "Trainees drop out over bus fare far more often than over difficulty. Mobile units and in-plant blocks exist to remove that reason.",
+  },
+  {
+    title: "The outcome is a job, not a certificate",
+    body: "We track placement at 90 days and enterprise survival at 12 months, and we report what comes back — including the numbers we would rather not publish.",
+  },
+];
 
 const TIMELINE = [
   {
@@ -55,7 +74,7 @@ const TIMELINE = [
   {
     year: "2025–26",
     title: "Nineteen states",
-    body: "Corporate, CSR, industry, defence, school and micro-enterprise programmes all running concurrently across the country.",
+    body: "Corporate, CSR, industry, defence, school and micro-enterprise verticals all running concurrently across the country.",
     photo: "two-wheeler-lab" as const,
   },
 ];
@@ -64,9 +83,9 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="About Y&Now"
-        lines={["Practical learning", "with a clear purpose."]}
-        lede="We help people and organisations build useful skills, grow with confidence, and stay ready for what comes next."
+        eyebrow="About YandNow"
+        lines={["We are a training", "company, not a", "certificate mill."]}
+        lede="YandNow began in 2020 with a handful of foundation trades in Bhopal. 6 years on we run 6 verticals across 19 states — and the test has never changed: can the person we trained do the job on Monday without supervision?"
         photo="welding-shopfloor"
         photoAlt="A welding workshop floor with equipment laid out and trainees at the benches"
         breadcrumb={[
@@ -74,125 +93,44 @@ export default function AboutPage() {
           { label: "About", href: "/about" },
         ]}
         meta={[
-          { label: "Solution areas", value: "06" },
-          { label: "Audiences we serve", value: "07" },
-          { label: "Quality management", value: "ISO 9001:2015" },
+          { label: "Founded", value: "2020" },
+          { label: "Verticals", value: "06" },
+          { label: "States covered", value: "19" },
         ]}
       />
 
-      {/* Who we are */}
+      {/* Principles */}
       <section className="bg-paper-warm py-24 md:py-32">
-        <div className="shell grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
-          <div>
-            <Reveal>
-              <p className="eyebrow text-indigo-brand">Who we are</p>
-            </Reveal>
-            <MaskLines
-              as="h2"
-              className="display-lg mt-6 max-w-[18ch] font-semibold"
-              lines={["A learning brand", "built around", "practical outcomes."]}
-            />
-          </div>
-
-          <div className="lg:pt-14">
-            <Reveal>
-              <p className="lede max-w-[56ch] text-ink-70">
-                We design programmes that make learners more job-ready, help teams
-                perform better, and build organisational capability that holds up over
-                time.
-              </p>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <p className="mt-6 max-w-[56ch] text-[1.0625rem] leading-relaxed text-ink-70">
-                We work across corporate, community, industrial, institutional and
-                learner settings — with the same method behind each one.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <div className="mt-10 border-t border-line pt-8">
-                <p className="eyebrow text-ink-30">Why our work matters</p>
-                <p className="mt-4 max-w-[56ch] text-[1.0625rem] leading-relaxed text-ink-70">
-                  The distance between learning something and doing it is still too
-                  wide. We help people build relevant skills, perform better in role,
-                  and move toward better opportunities with more confidence.
-                </p>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.14}>
-              <div className="mt-10 border border-line bg-paper p-6 md:p-7">
-                <p className="eyebrow text-indigo-brand">Credentials</p>
-                <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-70">
-                  Y&amp;Now is a registered trademark associated with BroadArks
-                  Technology Private Limited. Our quality management practices follow
-                  ISO 9001:2015.
-                </p>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission and vision */}
-      <section className="bg-indigo-brand py-20 text-paper-warm md:py-28">
-        <div className="shell grid gap-12 md:grid-cols-2 md:gap-0">
-          {[
-            [
-              "Our mission",
-              "To make practical learning easier to access, easier to apply, and more useful for real work.",
-            ],
-            [
-              "Our vision",
-              "A future where more people can turn learning into opportunity, confidence and better work.",
-            ],
-          ].map(([label, text], i) => (
-            <Reveal
-              key={label}
-              delay={i * 0.08}
-              className={i === 1 ? "border-t border-white/15 pt-12 md:border-t-0 md:border-l md:pt-0 md:pl-12 lg:pl-16" : "md:pr-12 lg:pr-16"}
-            >
-              <p className="eyebrow text-cyan-soft">{label}</p>
-              <p className="mt-6 max-w-[26ch] font-display text-[clamp(1.5rem,2.8vw,2.25rem)] leading-[1.2] font-medium tracking-[-0.028em]">
-                {text}
-              </p>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* What we believe */}
-      <section className="bg-paper py-24 md:py-32">
         <div className="shell">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
+          <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
               <Reveal>
-                <p className="eyebrow text-indigo-brand">What we believe</p>
+                <p className="eyebrow text-indigo-brand">How we hold ourselves</p>
               </Reveal>
               <MaskLines
                 as="h2"
                 className="display-lg mt-6 max-w-[20ch] font-semibold"
-                lines={["Five beliefs behind", "every programme."]}
+                lines={["Four rules we", "do not bend."]}
               />
             </div>
             <Reveal delay={0.1}>
               <p className="max-w-[34ch] text-[0.9375rem] leading-relaxed text-ink-50">
-                They shape what we build, how we teach it, and how we judge whether it
-                worked.
+                They cost us work occasionally. They are also the reason partners hand
+                us second and third programmes.
               </p>
             </Reveal>
           </div>
 
           <RevealGroup
-            className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 md:mt-16 lg:grid-cols-3"
+            className="mt-16 grid gap-px border border-line bg-line md:grid-cols-2"
             stagger={0.07}
           >
-            {beliefs.map((p, i) => (
-              <RevealItem key={p.title} className="bg-paper-warm p-7 md:p-9" y={18}>
+            {PRINCIPLES.map((p, i) => (
+              <RevealItem key={p.title} className="bg-paper-warm p-8 md:p-10" y={18}>
                 <span className="font-mono text-xs tracking-[0.16em] text-indigo-brand tabular-nums">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-5 font-display text-[1.3125rem] leading-[1.2] font-semibold tracking-[-0.03em] md:text-[1.375rem]">
+                <h3 className="mt-5 font-display text-[1.375rem] leading-[1.18] font-semibold tracking-[-0.03em]">
                   {p.title}
                 </h3>
                 <p className="mt-4 text-[1.0625rem] leading-relaxed text-ink-70">
@@ -200,20 +138,28 @@ export default function AboutPage() {
                 </p>
               </RevealItem>
             ))}
-            {/* Sixth cell: closes the grid with the loop the beliefs add up to. */}
-            <RevealItem className="flex flex-col justify-between gap-6 bg-ink p-7 text-paper-warm md:p-9" y={18}>
-              <span className="eyebrow text-cyan-brand">In practice</span>
-              <p className="font-display text-[1.3125rem] leading-[1.3] font-semibold tracking-[-0.03em]">
-                Assess, learn, apply, perform, improve — then start the next cycle with
-                better evidence.
-              </p>
-            </RevealItem>
           </RevealGroup>
         </div>
       </section>
 
+      {/* Numbers band */}
+      <section className="bg-indigo-brand py-20 text-paper-warm md:py-24">
+        <div className="shell grid grid-cols-2 gap-y-10 lg:grid-cols-4 lg:gap-x-8">
+          {metrics.map((m) => (
+            <Reveal key={m.label}>
+              <Counter
+                to={m.value}
+                suffix={m.suffix}
+                className="block font-display text-[clamp(2.25rem,4.4vw,3.5rem)] leading-none font-semibold tracking-[-0.045em] tabular-nums"
+              />
+              <p className="mt-3 text-[0.9375rem] font-medium">{m.label}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       {/* Timeline */}
-      <section className="bg-paper-warm py-24 md:py-32">
+      <section className="bg-paper py-24 md:py-32">
         <div className="shell">
           <Reveal>
             <p className="eyebrow text-indigo-brand">Track record</p>
@@ -323,43 +269,8 @@ export default function AboutPage() {
 
       <Leadership
         people={leadership}
-        lines={["The people", "behind Y&Now."]}
-        intro="Experience across media, learning and development, finance and systems — focused on one question: does the learning change what people can do?"
-        advisers={advisers}
+        intro="Two seats, both operational. Neither of us has an office we cannot be pulled out of when a programme needs a decision on the ground."
       />
-
-      {/* Work with us */}
-      <section className="border-t border-line bg-paper-warm py-16 md:py-20">
-        <div className="shell grid gap-8 md:grid-cols-[1fr_auto] md:items-end md:gap-16">
-          <div>
-            <Reveal>
-              <p className="eyebrow text-indigo-brand">Work with us</p>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="display-md mt-5 max-w-[24ch] font-semibold">
-                The conversation starts the same way.
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mt-5 max-w-[54ch] text-[1.0625rem] leading-relaxed text-ink-70">
-                Whether you are building a workforce programme, a community initiative
-                or your own next skill, tell us what you are trying to achieve.
-              </p>
-            </Reveal>
-          </div>
-          <Reveal delay={0.14}>
-            <Link
-              href="/contact"
-              className="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 font-medium text-paper-warm transition-colors duration-300 hover:bg-indigo-brand sm:px-7 sm:py-4"
-            >
-              Talk to Y&amp;Now
-              <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-          </Reveal>
-        </div>
-      </section>
 
       <Faq items={faqs} />
       <PartnerMarquee />

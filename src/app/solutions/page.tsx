@@ -3,8 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Frame from "@/components/Frame";
 import PartnerMarquee from "@/components/sections/PartnerMarquee";
-import WhyChoose from "@/components/sections/WhyChoose";
-import { learners, solutions } from "@/lib/site";
+import { solutions } from "@/lib/site";
 import {
   MaskLines,
   Reveal,
@@ -16,7 +15,7 @@ import {
 export const metadata: Metadata = {
   title: "Solutions",
   description:
-    "Practical learning for every audience: corporate training, CSR programmes, industry solutions, defence programmes, school solutions, micro-entrepreneurship and courses for learners.",
+    "Six skill-development verticals: corporate training, CSR programmes, industry solutions, defence programmes, school solutions and micro-entrepreneurship.",
 };
 
 export default function SolutionsPage() {
@@ -24,8 +23,8 @@ export default function SolutionsPage() {
     <>
       <PageHero
         eyebrow="Solutions"
-        lines={["Find the route", "that fits your goal."]}
-        lede="Six solution areas for organisations, plus courses for individual learners. Start where you sit — or tell us the outcome you need and we will point you to the right route."
+        lines={["Six ways we", "build capability."]}
+        lede="One delivery spine, six audiences. Pick the vertical that matches your mandate — or tell us the outcome and we will tell you which one it belongs in."
         photo="engine-cohort"
         photoAlt="A cohort of technicians gathered around a heavy-vehicle engine on a training stand"
         breadcrumb={[
@@ -33,9 +32,9 @@ export default function SolutionsPage() {
           { label: "Solutions", href: "/solutions" },
         ]}
         meta={[
-          { label: "Solution areas", value: "06" },
-          { label: "Audiences we serve", value: "07" },
-          { label: "Steps in every programme", value: "05" },
+          { label: "Verticals", value: "06" },
+          { label: "People trained", value: "48,000+" },
+          { label: "States covered", value: "19" },
         ]}
       />
 
@@ -46,7 +45,7 @@ export default function SolutionsPage() {
             <li key={s.slug} className="border-b border-line">
               <Link href={`/solutions/${s.slug}`} className="group block">
                 <div
-                  className={`shell grid items-center gap-7 py-12 md:gap-8 md:py-14 lg:grid-cols-2 lg:gap-16 lg:py-20 ${
+                  className={`shell grid items-center gap-8 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20 ${
                     i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
                   }`}
                 >
@@ -84,20 +83,24 @@ export default function SolutionsPage() {
                     </Reveal>
 
                     <Reveal delay={0.14}>
-                      <ul className="mt-7 space-y-2.5 border-t border-line pt-6">
-                        {s.cover.slice(0, 3).map((c) => (
-                          <li key={c} className="flex items-start gap-3">
-                            <span className={`mt-[0.6rem] h-[2px] w-4 shrink-0 ${s.accent === "cyan" ? "bg-cyan-brand" : "bg-indigo-brand"}`} />
-                            <span className="text-[0.9375rem] leading-relaxed text-ink-70">{c}</span>
-                          </li>
+                      <dl className="mt-8 grid grid-cols-3 gap-x-6">
+                        {s.outcomes.map((o) => (
+                          <div key={o.label}>
+                            <dt className="font-display text-[clamp(1.375rem,2vw,1.75rem)] leading-none font-semibold tracking-[-0.035em] text-indigo-brand">
+                              <StatNumber value={o.stat} />
+                            </dt>
+                            <dd className="mt-2 text-[0.8125rem] leading-snug text-ink-50">
+                              {o.label}
+                            </dd>
+                          </div>
                         ))}
-                      </ul>
+                      </dl>
                     </Reveal>
 
                     <Reveal delay={0.18}>
-                      <span className="mt-8 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-ink">
+                      <span className="mt-9 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-ink">
                         <span className="relative">
-                          {s.linkLabel}
+                          {s.ctaLabel}
                           <span className="absolute -bottom-[3px] left-0 h-px w-full origin-left scale-x-0 bg-indigo-brand transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
                         </span>
                         <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[3px] group-hover:-translate-y-[3px]">
@@ -113,121 +116,48 @@ export default function SolutionsPage() {
         </ul>
       </section>
 
-      {/* For learners — individual courses, kept on this page */}
-      <section id="learners" className="scroll-mt-24 bg-paper py-24 md:py-32">
+      {/* Cross-cutting capabilities */}
+      <section className="bg-ink py-24 text-paper-warm md:py-32">
         <div className="shell">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div>
-              <Reveal>
-                <p className="eyebrow text-indigo-brand">For learners</p>
-              </Reveal>
-              <MaskLines
-                as="h2"
-                className="display-lg mt-6 max-w-[20ch] font-semibold"
-                lines={[...learners.headline]}
-              />
-            </div>
-            <Reveal delay={0.1}>
-              <p className="max-w-[40ch] text-[0.9375rem] leading-relaxed text-ink-50">
-                {learners.lede}
-              </p>
-            </Reveal>
-          </div>
-
-          {/* Start with where you are */}
           <Reveal>
-            <p className="eyebrow mt-14 text-ink-30 md:mt-16">Start with where you are</p>
+            <p className="eyebrow text-cyan-brand">Regardless of vertical</p>
           </Reveal>
+          <MaskLines
+            as="h2"
+            className="display-lg mt-6 max-w-[22ch] font-semibold"
+            lines={["What every", "programme includes."]}
+          />
+
           <RevealGroup
-            className="mt-6 grid gap-px border border-line bg-line md:grid-cols-3"
-            stagger={0.07}
+            className="mt-16 grid gap-px border border-white/12 bg-white/12 sm:grid-cols-2 lg:grid-cols-3"
+            stagger={0.06}
           >
-            {learners.paths.map((p, i) => (
-              <RevealItem key={p.title} className="bg-paper-warm p-7 md:p-8" y={18}>
-                <span className="font-mono text-xs tracking-[0.16em] text-indigo-brand tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-5 font-display text-[1.3125rem] leading-[1.2] font-semibold tracking-[-0.03em]">
-                  {p.title}
+            {[
+              ["Curriculum design", "Written backwards from an observable competency and mapped to NSQF levels."],
+              ["Equipment & consumables", "Live rigs, tooling and materials supplied and maintained by us, not borrowed."],
+              ["Certified trainers", "Trade-qualified instructors with floor experience, assessed annually."],
+              ["Third-party assessment", "Independent assessors through the relevant Sector Skill Council."],
+              ["Placement support", "Employer introductions, interview preparation and 90-day verification."],
+              ["Reporting & audit trail", "Geo-tagged attendance, assessment records and tracer studies as standard."],
+            ].map(([title, body]) => (
+              <RevealItem
+                key={title}
+                className="group/cap relative bg-ink p-8 transition-colors duration-500 hover:bg-white/[0.035]"
+                y={18}
+              >
+                <h3 className="font-display text-[1.1875rem] font-semibold tracking-[-0.025em]">
+                  {title}
                 </h3>
-                <p className="mt-3 text-[1rem] leading-relaxed text-ink-70">{p.body}</p>
+                {/* Drawn in from the left on hover — the whole micro-interaction. */}
+                <span className="mt-3 block h-[2px] w-8 origin-left scale-x-0 bg-cyan-brand transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cap:scale-x-100" />
+                <p className="mt-3 text-[0.9375rem] leading-relaxed text-white/55 transition-colors duration-500 group-hover/cap:text-white/75">
+                  {body}
+                </p>
               </RevealItem>
             ))}
           </RevealGroup>
-
-          <div className="mt-14 grid gap-12 md:mt-16 lg:grid-cols-[1fr_0.8fr] lg:gap-20">
-            <div className="grid gap-10 sm:grid-cols-2">
-              <Reveal>
-                <p className="eyebrow text-ink-30">What you can expect</p>
-                <ul className="mt-5 space-y-3">
-                  {learners.expect.map((e) => (
-                    <li key={e} className="flex items-start gap-3">
-                      <span className="mt-[0.6rem] h-[2px] w-4 shrink-0 bg-cyan-brand" />
-                      <span className="text-[1rem] leading-relaxed text-ink-70">{e}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-              <Reveal delay={0.06}>
-                <p className="eyebrow text-ink-30">Who this is for</p>
-                <ul className="mt-5 space-y-3">
-                  {learners.audience.map((a) => (
-                    <li key={a} className="flex items-start gap-3">
-                      <span className="mt-[0.6rem] h-[2px] w-4 shrink-0 bg-indigo-brand" />
-                      <span className="text-[1rem] leading-relaxed text-ink-70">{a}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
-
-            <Reveal delay={0.1}>
-              <div className="bg-indigo-brand p-7 text-paper-warm md:p-9">
-                <p className="eyebrow text-cyan-soft">You are not imagining it</p>
-                <StatNumber
-                  value={learners.stat.value}
-                  className="mt-6 block font-display text-[clamp(2.75rem,6vw,4.25rem)] leading-[0.92] font-semibold tracking-[-0.045em]"
-                />
-                <p className="mt-5 text-[1.0625rem] leading-relaxed font-medium">
-                  {learners.stat.label}
-                </p>
-                <p className="mt-2 text-[0.9375rem] leading-relaxed text-white/65">
-                  {learners.stat.body}
-                </p>
-                <p className="mt-5 font-mono text-[0.625rem] tracking-[0.11em] text-white/45 uppercase">
-                  Source · {learners.stat.source}
-                </p>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Find your course */}
-          <Reveal delay={0.08}>
-            <div className="mt-14 flex flex-col gap-6 border-t border-line pt-10 md:mt-16 md:flex-row md:items-center md:justify-between">
-              <div>
-                <h3 className="font-display text-[1.5rem] leading-[1.15] font-semibold tracking-[-0.03em] md:text-[1.75rem]">
-                  Find your course
-                </h3>
-                <p className="mt-2 max-w-[52ch] text-[1rem] leading-relaxed text-ink-70">
-                  Tell us where you are and where you want to go. We will share the
-                  current catalogue and help you pick the route that fits your next step.
-                </p>
-              </div>
-              <Link
-                href="/contact"
-                className="group inline-flex shrink-0 items-center gap-3 self-start rounded-full bg-ink px-6 py-3.5 font-medium text-paper-warm transition-colors duration-300 hover:bg-indigo-brand md:self-auto"
-              >
-                Find a course
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
-                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-            </div>
-          </Reveal>
         </div>
       </section>
-
-      <WhyChoose eyebrow="Whichever route you take" lines={["Why organisations", "choose us."]} />
 
       <PartnerMarquee />
     </>

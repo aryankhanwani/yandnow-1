@@ -19,12 +19,13 @@ export default function Footer() {
             <MaskLines
               as="h2"
               className="display-lg mt-6 max-w-[16ch] font-semibold"
-              lines={["Tell us what you are", "trying to improve."]}
+              lines={["Tell us what", "the floor needs."]}
             />
             <Reveal delay={0.12}>
               <p className="lede mt-7 max-w-[46ch] text-white/60">
-                Share the outcome you need, who it is for, and where things stand
-                today. We will point you to the right programme, route or platform.
+                Send us the role you are struggling to fill, or the mandate you need
+                delivered. We will come back with a scope, a timeline and a number —
+                not a brochure.
               </p>
             </Reveal>
             <Reveal delay={0.18}>
@@ -33,7 +34,7 @@ export default function Footer() {
                   href="/contact"
                   className="group inline-flex items-center gap-3 rounded-full bg-cyan-brand px-7 py-4 font-medium text-indigo-ink transition-colors duration-300 hover:bg-white"
                 >
-                  Talk to Y&amp;Now
+                  Start a programme
                   <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
                     <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -49,7 +50,7 @@ export default function Footer() {
           </div>
 
           <Reveal delay={0.1} className="lg:pt-4">
-            <dl className="grid grid-cols-1 gap-x-8 gap-y-9 min-[420px]:grid-cols-2">
+            <dl className="grid grid-cols-2 gap-x-8 gap-y-9 sm:grid-cols-2">
               <div>
                 <dt className="eyebrow text-white/35">Reach us</dt>
                 <dd className="mt-3 space-y-1 text-[0.9375rem] text-white/70">
@@ -62,7 +63,7 @@ export default function Footer() {
                 </dd>
               </div>
               <div>
-                <dt className="eyebrow text-white/35">Office</dt>
+                <dt className="eyebrow text-white/35">Offices</dt>
                 <dd className="mt-3 space-y-1 text-[0.9375rem] text-white/70">
                   {site.address.map((l) => (
                     <span key={l} className="block">
@@ -73,7 +74,7 @@ export default function Footer() {
               </div>
               <div>
                 <dt className="eyebrow text-white/35">Follow</dt>
-                <dd className="mt-3 flex flex-col items-start gap-1.5 text-[0.9375rem]">
+                <dd className="mt-3 space-y-1.5 text-[0.9375rem]">
                   {site.social.map((s) => (
                     <ArrowLink key={s.label} href={s.href} tone="light">
                       {s.label}
@@ -82,11 +83,11 @@ export default function Footer() {
                 </dd>
               </div>
               <div>
-                <dt className="eyebrow text-white/35">Credentials</dt>
+                <dt className="eyebrow text-white/35">Hours</dt>
                 <dd className="mt-3 text-[0.9375rem] text-white/70">
-                  ISO 9001:2015
+                  Mon – Sat
                   <br />
-                  quality management
+                  09:00 – 18:30 IST
                 </dd>
               </div>
             </dl>
@@ -99,8 +100,7 @@ export default function Footer() {
         <div>
           <Logo tone="grey" className="h-7" />
           <p className="mt-4 max-w-[30ch] text-sm leading-relaxed text-white/45">
-            {site.tagline} Practical skills for real work — for organisations,
-            communities and learners.
+            {site.tagline} Workforce capability built where the work happens.
           </p>
         </div>
 
@@ -138,9 +138,9 @@ export default function Footer() {
 
         <div className="flex flex-col justify-between gap-6">
           <p className="font-mono text-[0.6875rem] leading-relaxed tracking-[0.1em] text-white/30 uppercase">
-            Y&amp;Now is a registered trademark
+            NSQF-aligned delivery
             <br />
-            associated with {site.legal}
+            ISO 9001:2015 processes
           </p>
         </div>
       </div>

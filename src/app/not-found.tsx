@@ -9,11 +9,11 @@ export default function NotFound() {
         <div>
           <p className="eyebrow text-cyan-brand">Error 404</p>
           <h1 className="display-lg mt-6 max-w-[16ch] font-semibold">
-            This route does not lead anywhere.
+            That page is not on the floor.
           </h1>
           <p className="lede mt-7 max-w-[44ch] text-white/60">
-            The link is broken or the page has moved. Start with one of our six
-            solution areas below, or go back to the homepage.
+            The link is broken or the page has moved. Everything we run is one of
+            six verticals — start there, or go back to the top.
           </p>
 
           <ul className="mt-10 grid gap-x-8 gap-y-3 border-t border-white/12 pt-8 sm:grid-cols-2">
